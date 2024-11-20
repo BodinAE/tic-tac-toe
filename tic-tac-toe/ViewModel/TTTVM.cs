@@ -18,19 +18,20 @@ namespace tic_tac_toe
             {
                 return placeComm ?? (placeComm = new RelayCommand(obj =>
                 {
-                    char c = (char)obj;
-                    if (c == ' ')
+                    int i = Convert.ToInt32(obj);
+                    if (GS.Board[i].State == ' ')
                     {
                         if (GS.TurnNumber % 2 == 0)
                         {
-                            c = 'X';
+                            GS.Board[i].State = 'X';
                         }
                         else
                         {
-                            c = 'O';
+                            GS.Board[i].State = 'O';
                         }
-                        obj = c;
-                        GS.TurnNumber++;
+                        GS.WinCheck();
+                        if (GS.GameRunning)
+                            GS.TurnNumber++;
                     }
                 }));
             }

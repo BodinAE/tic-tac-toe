@@ -8,55 +8,75 @@ namespace tic_tac_toe
 {
     internal class GameState : PropertyChangedClass
     {
-        private char[] row1;
-        public char[] Row1
+        private BoardCell[] board;
+        public BoardCell[] Board
         {
             get
             {
-                return row1;
+                return board;
             }
             set
             {
-                row1 = value;
-                OnPropertyChanged("Row1");
-            }
-        }
-        
-        private char[] row2;
-        public char[] Row2
-        {
-            get
-            {
-                return row2;
-            }
-            set
-            {
-                row2 = value;
-                OnPropertyChanged("Row2");
-            }
-        }
-        
-        private char[] row3; 
-        public char[] Row3
-        {
-            get
-            {
-                return row3;
-            }
-            set
-            {
-                row3 = value;
-                OnPropertyChanged("Row3");
+                board = value;
+                OnPropertyChanged("Board");
             }
         }
 
         public int TurnNumber { get; set; }
+        public char Winner { get; set; }
+        private bool gameRunning;
+        public bool GameRunning
+        {
+            get
+            {
+                return gameRunning;
+            }
+            set
+            {
+                gameRunning = value;
+                OnPropertyChanged("GameRunning");
+            }
+        }
         public GameState()
         {
-            Row1 = new char[] { ' ', ' ', ' ' };
-            Row2 = new char[] { ' ', ' ', ' ' };
-            Row3 = new char[] { ' ', ' ', ' ' };
+            Board = new BoardCell[9] { new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell() };
             TurnNumber = 1;
+            Winner = ' ';
+            GameRunning = true;
+        }
+        public char WinCheck()
+        {
+            if ((Board[0].State != ' ') && (Board[0].State == Board[4].State) && (Board[4].State == Board[8].State))
+            {
+                Winner = Board[0].State;
+                GameRunning = false;
+                return Board[0].State;
+            }
+
+            if ((Board[2].State != ' ') && (Board[2].State == Board[4].State) && (Board[4].State == Board[6].State))
+            {
+                Winner = Board[2].State;
+                GameRunning = false;
+                return Board[2].State;
+            }
+
+            for(int i = 0; i < 3; i++)
+            {
+                if ((Board[i].State != ' ') && (Board[i].State == Board[i + 3].State) && (Board[i+3].State == Board[i + 6].State))
+                {
+                    Winner = Board[i].State;
+                    GameRunning = false;
+                    return Board[i].State;
+                }
+
+                if ((Board[i*3].State != ' ') && (Board[i * 3].State == Board[(i * 3) + 1].State) && (Board[(i * 3) + 1].State == Board[(i * 3) + 2].State))
+                {
+                    Winner = Board[i * 3].State;
+                    GameRunning = false;
+                    return Board[i*3].State;
+                }
+            }
+            return ' ';
         }
     }
 }
