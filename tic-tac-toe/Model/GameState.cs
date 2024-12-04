@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,9 +22,70 @@ namespace tic_tac_toe
                 OnPropertyChanged("Board");
             }
         }
+        //Gamemode 0 - no game
+        //Gamemode 1 - pvp
+        //Gamemode 2 - pvc player 1st
+        //Gamemode 3 - pvc player 2nd
+        private int gameMode = 0;
+        public int GameMode 
+        {
+            get
+            {
+                return gameMode;
+            }
+            set
+            {
+                gameMode = value;
+            }
+        }
+        private int turnNumber;
+        public int TurnNumber 
+        {
+            get
+            {
+                return turnNumber;
+            } 
+            set
+            {
+                turnNumber = value;
+                if (turnNumber % 2 == 0)
+                    CurrentTurn = 'X';
+                else
+                    CurrentTurn = 'O';
+                OnPropertyChanged("TurnNumber");
+            }
+        }
 
-        public int TurnNumber { get; set; }
-        public char Winner { get; set; }
+        private char currentTurn;
+        public char CurrentTurn 
+        {
+            get
+            {
+                return currentTurn;
+            }
+            set
+            {
+                currentTurn = value;
+                OnPropertyChanged("CurrentTurn");
+            }
+            
+        }
+
+        private char winner;
+        public char Winner 
+        { 
+            get
+            {
+                return winner;
+            } 
+            set
+            {
+                winner = value;
+                WinText = $"{value} won!";
+                OnPropertyChanged("Winner");
+            }
+        }
+
         private bool gameRunning;
         public bool GameRunning
         {
@@ -37,11 +99,26 @@ namespace tic_tac_toe
                 OnPropertyChanged("GameRunning");
             }
         }
+
+        private string winText;
+        public string WinText
+        {
+            get
+            {
+                return winText;
+            }
+            set
+            {
+                winText = value;
+                OnPropertyChanged("WinText");
+            }
+        }
+
         public GameState()
         {
             Board = new BoardCell[9] { new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell() };
             TurnNumber = 1;
-            Winner = ' ';
+            //Winner = ' ';
             GameRunning = true;
         }
         public char WinCheck()
@@ -75,6 +152,18 @@ namespace tic_tac_toe
                     GameRunning = false;
                     return Board[i*3].State;
                 }
+            }
+            bool tie = true;
+            foreach(var cell in Board)
+            {
+                if (cell.State == ' ') 
+                    tie = false;
+            }
+            if (tie)
+            {
+                GameRunning = false;
+                WinText = "Game tied";
+                return 'T';
             }
             return ' ';
         }

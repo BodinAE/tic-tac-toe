@@ -21,18 +21,24 @@ namespace tic_tac_toe
                     int i = Convert.ToInt32(obj);
                     if (GS.Board[i].State == ' ')
                     {
-                        if (GS.TurnNumber % 2 == 0)
-                        {
-                            GS.Board[i].State = 'X';
-                        }
-                        else
-                        {
-                            GS.Board[i].State = 'O';
-                        }
+                        GS.Board[i].State = GS.CurrentTurn;
                         GS.WinCheck();
                         if (GS.GameRunning)
                             GS.TurnNumber++;
                     }
+                }));
+            }
+        }
+
+        private RelayCommand resetComm;
+        public RelayCommand ResetComm
+        {
+            get
+            {
+                return resetComm ?? (resetComm = new RelayCommand(obj =>
+                {
+                    GS = new GameState();
+                    OnPropertyChanged("GS");
                 }));
             }
         }

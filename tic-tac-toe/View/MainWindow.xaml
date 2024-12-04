@@ -6,63 +6,102 @@
         xmlns:local="clr-namespace:tic_tac_toe"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="450">
-    <Grid Name ="BoardView" Margin="30 30 30 30" IsEnabled="{Binding GS.GameRunning}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Button Grid.Row="0" Grid.Column="0" 
-                FontFamily="Comic Sans MS" FontSize="96"
-                Content = "{Binding GS.Board[0].State, UpdateSourceTrigger = PropertyChanged}"
-                Command = "{Binding PlaceComm}"
-                CommandParameter="0"/>
-        <Button Grid.Row="0" Grid.Column="1"
-                FontFamily="Comic Sans MS" FontSize="96"
-                Content = "{Binding GS.Board[1].State, UpdateSourceTrigger = PropertyChanged}"
-                Command = "{Binding PlaceComm}"
-                CommandParameter="1"/>
-        <Button Grid.Row="0" Grid.Column="2"
-                FontFamily="Comic Sans MS" FontSize="96"
-                Content = "{Binding GS.Board[2].State, UpdateSourceTrigger = PropertyChanged}"
-                Command = "{Binding PlaceComm}"
-                CommandParameter="2"/>
+    <StackPanel>
+        <Menu MinHeight="20">
+            <MenuItem Header="game settings">
+                <MenuItem Header="reset game" 
+                          Command="{Binding ResetComm}"
+                          />
+                <MenuItem Header="new game" IsEnabled="False">
+                    <MenuItem Header="against player"/>
+                    <MenuItem Header="against pc 1"/>
+                    <MenuItem Header="agains pc 2"/>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <DockPanel>
+            <Grid Name ="BoardView" 
+              DockPanel.Dock="Left"
+              Margin="30 30 30 30" 
+              Height="192" 
+              Width="192" 
+              IsEnabled="{Binding GS.GameRunning}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" Grid.Column="0" 
+                    FontFamily="Comic Sans MS" FontSize="48"
+                    Content = "{Binding GS.Board[0].State, UpdateSourceTrigger = PropertyChanged}"
+                    Command = "{Binding PlaceComm}"
+                    CommandParameter="0"/>
+            <Button Grid.Row="0" Grid.Column="1"
+                    FontFamily="Comic Sans MS" FontSize="48"
+                    Content = "{Binding GS.Board[1].State, UpdateSourceTrigger = PropertyChanged}"
+                    Command = "{Binding PlaceComm}"
+                    CommandParameter="1"/>
+            <Button Grid.Row="0" Grid.Column="2"
+                    FontFamily="Comic Sans MS" FontSize="48"
+                    Content = "{Binding GS.Board[2].State, UpdateSourceTrigger = PropertyChanged}"
+                    Command = "{Binding PlaceComm}"
+                    CommandParameter="2"/>
         
-        <Button Grid.Row="1" Grid.Column="0"
-                FontFamily="Comic Sans MS" FontSize="96"
-                Content = "{Binding GS.Board[3].State, UpdateSourceTrigger = PropertyChanged}"
-                Command = "{Binding PlaceComm}"
-                CommandParameter="3"/>
-        <Button Grid.Row="1" Grid.Column="1"
-                FontFamily="Comic Sans MS" FontSize="96"
-                Content = "{Binding GS.Board[4].State, UpdateSourceTrigger = PropertyChanged}"
-                Command = "{Binding PlaceComm}"
-                CommandParameter="4"/>
-        <Button Grid.Row="1" Grid.Column="2"
-                FontFamily="Comic Sans MS" FontSize="96"
-                Content = "{Binding GS.Board[5].State, UpdateSourceTrigger = PropertyChanged}"
-                Command = "{Binding PlaceComm}"
-                CommandParameter="5"/>
+            <Button Grid.Row="1" Grid.Column="0"
+                    FontFamily="Comic Sans MS" FontSize="48"
+                    Content = "{Binding GS.Board[3].State, UpdateSourceTrigger = PropertyChanged}"
+                    Command = "{Binding PlaceComm}"
+                    CommandParameter="3"/>
+            <Button Grid.Row="1" Grid.Column="1"
+                    FontFamily="Comic Sans MS" FontSize="48"
+                    Content = "{Binding GS.Board[4].State, UpdateSourceTrigger = PropertyChanged}"
+                    Command = "{Binding PlaceComm}"
+                    CommandParameter="4"/>
+            <Button Grid.Row="1" Grid.Column="2"
+                    FontFamily="Comic Sans MS" FontSize="48"
+                    Content = "{Binding GS.Board[5].State, UpdateSourceTrigger = PropertyChanged}"
+                    Command = "{Binding PlaceComm}"
+                    CommandParameter="5"/>
         
-        <Button Grid.Row="2" Grid.Column="0"
-                FontFamily="Comic Sans MS" FontSize="96"
-                Content = "{Binding GS.Board[6].State, UpdateSourceTrigger = PropertyChanged}"
-                Command = "{Binding PlaceComm}"
-                CommandParameter="6"/>
-        <Button Grid.Row="2" Grid.Column="1"
-                FontFamily="Comic Sans MS" FontSize="96"
-                Content = "{Binding GS.Board[7].State, UpdateSourceTrigger = PropertyChanged}"
-                Command = "{Binding PlaceComm}"
-                CommandParameter="7"/>
-        <Button Grid.Row="2" Grid.Column="2"
-                FontFamily="Comic Sans MS" FontSize="96"
-                Content = "{Binding GS.Board[8].State, UpdateSourceTrigger = PropertyChanged}"
-                Command = "{Binding PlaceComm}"
-                CommandParameter="8"/>
-    </Grid>
+            <Button Grid.Row="2" Grid.Column="0"
+                    FontFamily="Comic Sans MS" FontSize="48"
+                    Content = "{Binding GS.Board[6].State, UpdateSourceTrigger = PropertyChanged}"
+                    Command = "{Binding PlaceComm}"
+                    CommandParameter="6"/>
+            <Button Grid.Row="2" Grid.Column="1"
+                    FontFamily="Comic Sans MS" FontSize="48"
+                    Content = "{Binding GS.Board[7].State, UpdateSourceTrigger = PropertyChanged}"
+                    Command = "{Binding PlaceComm}"
+                    CommandParameter="7"/>
+            <Button Grid.Row="2" Grid.Column="2"
+                    FontFamily="Comic Sans MS" FontSize="48"
+                    Content = "{Binding GS.Board[8].State, UpdateSourceTrigger = PropertyChanged}"
+                    Command = "{Binding PlaceComm}"
+                    CommandParameter="8"/>
+        </Grid>
+            <StackPanel
+                Margin="10 30 0 0"
+                Orientation="Horizontal"
+                DockPanel.Dock="Top">
+                <TextBlock 
+                    Margin="0 0 20 0"
+                    Text="Current turn:"
+                    FontSize="20"/>
+                <TextBlock 
+                    Text="{Binding GS.CurrentTurn, UpdateSourceTrigger=PropertyChanged}"
+                    FontSize="20"/>
+            </StackPanel>
+            <TextBlock
+                Margin="10 0 20 0"
+                DockPanel.Dock="Top"
+                Text="{Binding GS.WinText}" 
+                FontSize="20"
+                />
+        </DockPanel>
+    </StackPanel>
 </Window>
