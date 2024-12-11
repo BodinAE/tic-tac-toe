@@ -26,7 +26,7 @@ namespace tic_tac_toe
         //Gamemode 1 - pvp
         //Gamemode 2 - pvc player 1st
         //Gamemode 3 - pvc player 2nd
-        private int gameMode = 0;
+        private int gameMode = 1;
         public int GameMode 
         {
             get
@@ -44,14 +44,22 @@ namespace tic_tac_toe
             get
             {
                 return turnNumber;
-            } 
+            }
             set
             {
                 turnNumber = value;
                 if (turnNumber % 2 == 0)
+                {
                     CurrentTurn = 'X';
+                    if (GameMode == 2)
+                        CompTurn();
+                }
                 else
+                {
                     CurrentTurn = 'O';
+                    if (GameMode == 3)
+                        CompTurn();
+                }
                 OnPropertyChanged("TurnNumber");
             }
         }
@@ -117,9 +125,10 @@ namespace tic_tac_toe
         public GameState()
         {
             Board = new BoardCell[9] { new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell() };
+            GameRunning = true;
             TurnNumber = 1;
             //Winner = ' ';
-            GameRunning = true;
+            
         }
         public char WinCheck()
         {
@@ -166,6 +175,23 @@ namespace tic_tac_toe
                 return 'T';
             }
             return ' ';
+        }
+        private void CompTurn()
+        {
+            var rand = new Random();
+            bool success = false;
+            while (!success)
+            {
+                int i = rand.Next(9);
+                if (Board[i].State == ' ')
+                {
+                    success = true;
+                    Board[i].State = CurrentTurn;
+                    WinCheck();
+                    if (GameRunning)
+                        TurnNumber++;
+                }
+            }
         }
     }
 }
