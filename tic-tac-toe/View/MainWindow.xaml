@@ -9,13 +9,19 @@
     <StackPanel>
         <Menu MinHeight="20">
             <MenuItem Header="game settings">
-                <MenuItem Header="reset game" 
+                <MenuItem Header="Reset Game" 
                           Command="{Binding ResetComm}"
                           />
-                <MenuItem Header="new game" IsEnabled="False">
-                    <MenuItem Header="against player"/>
-                    <MenuItem Header="against pc 1"/>
-                    <MenuItem Header="agains pc 2"/>
+                <MenuItem Header="New Game" IsEnabled="True">
+                    <MenuItem Header="Against Player"
+                              Command="{Binding ChangeGameModeComm}"
+                              CommandParameter="1"/>
+                    <MenuItem Header="Against PC (Player goes 1st)"
+                              Command="{Binding ChangeGameModeComm}"
+                              CommandParameter="2"/>
+                    <MenuItem Header="Against PC (Player goes 2nd)"
+                              Command="{Binding ChangeGameModeComm}"
+                              CommandParameter="3"/>
                 </MenuItem>
             </MenuItem>
         </Menu>

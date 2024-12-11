@@ -37,14 +37,29 @@ namespace tic_tac_toe
             {
                 return resetComm ?? (resetComm = new RelayCommand(obj =>
                 {
-                    GS = new GameState();
+                    GS = new GameState(GS.GameMode);
+                    OnPropertyChanged("GS");
+                }));
+            }
+        }
+
+        private RelayCommand changeGameModeComm;
+        public RelayCommand ChangeGameModeComm
+        {
+            get
+            {
+                return changeGameModeComm ?? (changeGameModeComm = new RelayCommand(obj =>
+                {
+                    int gamemode = Convert.ToInt32(obj);
+                    GS = new GameState(gamemode);
+
                     OnPropertyChanged("GS");
                 }));
             }
         }
         public TTTVM() 
         {
-            GS = new GameState();
+            GS = new GameState(1);
         }
     }
 }

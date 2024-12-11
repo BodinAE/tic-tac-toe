@@ -127,8 +127,13 @@ namespace tic_tac_toe
             Board = new BoardCell[9] { new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell() };
             GameRunning = true;
             TurnNumber = 1;
-            //Winner = ' ';
-            
+        }
+        public GameState(int gamemode)
+        {
+            Board = new BoardCell[9] { new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell(), new BoardCell() };
+            GameRunning = true;
+            GameMode = gamemode;
+            TurnNumber = 1;
         }
         public char WinCheck()
         {
